@@ -1,1 +1,7 @@
-psycopg2-binary==2.9.9
+# PostgreSQL 数据库适配器依赖
+# psycopg2 - 传统的 PostgreSQL 适配器 (同步)
+psycopg2-binary>=2.9.11
+
+# psycopg3 - 新一代 PostgreSQL 适配器 (支持异步)
+# 使用 psycopg[binary] 安装预编译的二进制版本，性能更好
+psycopg[binary]>=3.2.12

@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-用户登录程序
+用户登录程序 (使用 psycopg2)
 验证PostgreSQL数据库中staff表的用户凭据
+
+本模块使用 psycopg2 进行数据库操作，这是传统的同步PostgreSQL适配器
+psycopg2 是Python中最流行的PostgreSQL数据库适配器之一
+
+依赖库:
+    - psycopg2: PostgreSQL 数据库适配器 (传统同步版本)
+    - hashlib: 密码加密
+    - sys: 系统相关功能
+    - datetime: 日期时间处理
+
+作者: Database Staff Management System
+版本: 1.0
 """
 
 import psycopg2
@@ -12,12 +24,22 @@ from datetime import datetime
 
 
 def connect_to_database():
-    """连接到PostgreSQL数据库"""
+    """
+    连接到PostgreSQL数据库 (使用 psycopg2)
+    
+    使用 psycopg2.connect() 建立数据库连接
+    注意：psycopg2 使用 'database' 参数名
+    
+    Returns:
+        psycopg2.extensions.connection: 数据库连接对象，失败时返回None
+    """
     try:
+        # psycopg2 数据库连接参数
+        # 注意：psycopg2 使用 'database' 参数名（而不是 'dbname'）
         connection = psycopg2.connect(
             host="localhost",
             port="5432",
-            database="dvdrental",
+            database="dvdrental",  # psycopg2 使用 'database'
             user="postgres",
             password="postgres"  # 请根据实际情况修改密码
         )
@@ -29,10 +51,12 @@ def connect_to_database():
 
 def authenticate_user(connection, username, password):
     """
-    验证用户凭据
+    验证用户凭据 (使用 psycopg2)
+    
+    使用 psycopg2 的游标执行SQL查询，验证用户登录凭据
     
     Args:
-        connection: 数据库连接
+        connection: psycopg2 数据库连接
         username (str): 用户名
         password (str): 密码
     
